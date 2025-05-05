@@ -26,16 +26,11 @@ function ProductList() {
         <button>
           <span className="text-2xl text-[#2E2955]">←</span>
         </button>
-        <h1 className="text-lg font-bold text-[#2E2955]">Chosse your meal!</h1>
+        <h1 className="text-lg font-bold text-[#2E2955]">Choose your meal!</h1>
         <button>
           <span className="text-2xl text-[#2E2955]">🛒</span>
         </button>
       </header>
-
-     
-
-     
-   
 
       {/* Lista de productos */}
       <main className="flex-1 overflow-y-auto px-4 space-y-4 pb-4">
@@ -51,8 +46,10 @@ function ProductList() {
             />
             <div className="flex-1">
               <h3 className="font-semibold text-[#2E2955]">{product.nombre}</h3>
-              <p className="text-sm text-gray-500">{product.categoria}</p>
-              <p className="text-[#2E2955] font-bold">${product.price}</p>
+              <p className="text-sm text-gray-500">Categoría: {product.categoria}</p>
+              <p className="text-[#2E2955] font-bold">Precio: ${product.price}</p>
+              <p className="text-sm text-gray-600">Cantidad: {product.cantidad}</p>
+              <p className="text-sm text-gray-600">Proveedor: {product.proveedor}</p>
             </div>
             <button className="bg-[#6C63FF] text-white px-4 py-2 rounded-full text-sm font-medium">
               Add to cart
