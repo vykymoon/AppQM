@@ -81,7 +81,7 @@ function Signup() {
         </form>
         <p className="text-xs text-center mt-4">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 font-medium underline">
+          <Link to="/login" className="text-[#2E2955] font-medium underline">
             Log In
           </Link>
         </p>
