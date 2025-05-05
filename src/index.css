@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.bg-image-container {
+    background-image: url('C:\Users\Victor Luna\Desktop\Repos\quickmeal\QuickMeal\src\components\login\Assets\BgLog.png'); /* Asegúrate de que la ruta sea correcta */
+    background-size: cover;
+    background-position: center;
+  }

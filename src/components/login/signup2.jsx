@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Login() {
+function Signup() {
   return (
     <div className="h-screen w-screen relative overflow-hidden">
       {/* Imagen de fondo */}
@@ -16,21 +16,25 @@ function Login() {
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#2E2955]/80 to-transparent" />
 
       {/* Logo QuickMeal arriba */}
-      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20 transform -translate-x">
-  <img
-    src="https://cdn.discordapp.com/attachments/1353908594571083930/1368724264915828927/image.png?ex=6819434e&is=6817f1ce&hm=eade4d4b5abf1741fe2f3c5b9b8f2ed8c56219cb23a87335c3ef1f7f0fe47d53&"
-    alt="QuickMeal Logo"
-    className="w-66" // Tamaño aumentado
-  />
-</div>
+      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
+        <img
+          src="https://cdn.discordapp.com/attachments/1353908594571083930/1368724264915828927/image.png?ex=6819434e&is=6817f1ce&hm=eade4d4b5abf1741fe2f3c5b9b8f2ed8c56219cb23a87335c3ef1f7f0fe47d53&"
+          alt="QuickMeal Logo"
+          className="w-66"
+        />
+      </div>
 
-
-      {/* Formulario de login */}
+      {/* Formulario de registro */}
       <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 z-20 w-80 bg-white bg-opacity-90 rounded-3xl p-6 shadow-xl">
         <h2 className="text-center text-[#2E2955] text-lg font-semibold mb-4">
-          Welcome to QuickMeal
+          Create your account
         </h2>
         <form className="flex flex-col space-y-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="border-b border-gray-400 focus:outline-none py-2 px-1 bg-transparent"
+          />
           <input
             type="email"
             placeholder="E-mail"
@@ -45,13 +49,13 @@ function Login() {
             type="submit"
             className="bg-[#2E2955] hover:bg-[#221f44] text-white py-2 rounded-xl font-semibold mt-4"
           >
-            Log in
+            Sign Up
           </button>
         </form>
         <p className="text-xs text-center mt-4">
-          forgot your password?{' '}
-          <Link to="/forgot-password" className="text-blue-600 font-medium underline">
-            ClickHere
+          Already have an account?{' '}
+          <Link to="/login" className="text-blue-600 font-medium underline">
+            Log In
           </Link>
         </p>
       </div>
@@ -59,4 +63,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

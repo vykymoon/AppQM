@@ -1,17 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Login from "./components/login/login"
-import Home from "./components/login/home"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/login/login";
+import Home from "./components/login/home";
+import Signup from "./components/login/signup2"; // Descomentado y usado correctamente
+
 function App() {
   return (
-    <> 
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-        <Route path='/login' element={<Login/>}/>  {/* Cambiado a mayúscula */}
-        <Route path='/' element={<Home/>}/>        {/* Cambiado a mayúscula */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} /> {/* Corregido */}
       </Routes>
-      </BrowserRouter>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
