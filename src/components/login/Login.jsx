@@ -13,7 +13,7 @@ function Login() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('Usuario logueado:', userCredential.user);
-      navigate('/home'); // Cambia "/home" a la ruta que quieras después del login
+      navigate('/Welcome'); // Redirige al home después de iniciar sesión
     } catch (error) {
       console.error('Error en login:', error.message);
       alert('Error: ' + error.message);
@@ -71,9 +71,9 @@ function Login() {
         </form>
 
         <p className="text-sm text-center mt-4">
-          ¿No tienes cuenta?{' '}
+          You don't have an account?{' '}
           <Link to="/signup" className="text-[#2E2955] font-semibold underline">
-            Regístrate
+            SignUp
           </Link>
         </p>
       </div>

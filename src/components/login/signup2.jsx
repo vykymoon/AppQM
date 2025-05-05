@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../FireBase";
 
@@ -7,13 +7,14 @@ function Signup() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); 
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Usuario creado con éxito");
-      // Opcional: redirigir al login o dashboard
+      navigate("/Welcome"); // 👈 redirige al home
     } catch (error) {
       alert("Error al crear el usuario: " + error.message);
     }

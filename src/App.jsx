@@ -1,15 +1,16 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/login/login";
-import Home from "./components/login/home";
-import Signup from "./components/login/signup2"; // Descomentado y usado correctamente
+import Login from "./components/login/Login";
+import Signup from "./components/login/signup2";
+import Welcome from "./components/login/Welcome";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} /> {/* Corregido */}
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/Welcome" element={<Welcome />} />
       </Routes>
     </BrowserRouter>
   );
