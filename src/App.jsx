@@ -6,6 +6,9 @@ import Home from "./components/login/Home";
 import ProductList from "./components/ProductList";
 import ProductListManagement from "./components/ProductListManagement"; // 👈 nueva importación
 
+
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +19,10 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/products" element={<ProductList />} />
         <Route path="/manage-products" element={<ProductListManagement />} /> {/* 👈 nueva ruta */}
+        
+        
+
+        
       </Routes>
     </BrowserRouter>
   );
