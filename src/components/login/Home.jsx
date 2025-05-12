@@ -25,7 +25,7 @@ function Home() {
       {/* Contenido centrado con logo QuickMeal */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 transform -translate-x-5">
         <img
-          src="https://cdn.discordapp.com/attachments/1353908594571083930/1368724264915828927/image.png?ex=6819434e&is=6817f1ce&hm=eade4d4b5abf1741fe2f3c5b9b8f2ed8c56219cb23a87335c3ef1f7f0fe47d53&"
+          src="./src/components/login/Assets/LogoW.png"
           alt="QuickMeal Icon"
           className="w-64 mb-12"
         />
