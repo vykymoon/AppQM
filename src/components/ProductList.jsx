@@ -3,23 +3,115 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../FireBase";
 import ShoppingCart from "./ShoppingCart";
 
+// Importar imágenes
+import restauranteEscuela from "../components/login/Assets/RestauranteEscuela.webp";
+import restauranteArcos from "../components/login/Assets/Arcos.webp";
+import embarcaderoCarta from "../components/login/Assets/Embarcadero.webp";
+import terrazaLiving from "../components/login/Assets/Terraza living.webp";
+import kioskos from "../components/login/Assets/Kioskos.webp";
+import autoservicioMenu from "../components/login/Assets/Meson.webp";
+import puntoWok from "../components/login/Assets/Punto Wok.webp";
+import banderitas from "../components/login/Assets/Meson-2.webp";
+import puntoCafe from "../components/login/Assets/Punto verde.webp";
+import cafeBolsa from "../components/login/Assets/Cafe bolsa-2.webp";
+import cafeEmbarcadero from "../components/login/Assets/Embarcadero Cafe-5.webp";
+import cafeEstudio from "../components/login/Assets/Cafe estudio.webp";
+import cipreses from "../components/login/Assets/Cipreses.webp";
+import cafeLetras from "../components/login/Assets/Café y Letras.webp";
+import puntoSandwich from "../components/login/Assets/Punto Sandwich.webp";
+
 function ProductList() {
   const restaurants = [
-    { id: "Restaurante Escuela", nombre: "Restaurante Escuela", imagen: "https://via.placeholder.com/150" },
-    { id: "Restaurante Arcos", nombre: "Restaurante Arcos", imagen: "https://via.placeholder.com/150" },
-    { id: "Embarcadero Carta", nombre: "Embarcadero Carta", imagen: "https://via.placeholder.com/150" },
-    { id: "Terraza Living", nombre: "Terraza Living", imagen: "https://via.placeholder.com/150" },
-    { id: "Kioskos", nombre: "Kioskos", imagen: "https://via.placeholder.com/150" },
-    { id: "Autoservicio Menú del día", nombre: "Autoservicio Menú del día", imagen: "https://via.placeholder.com/150" },
-    { id: "Punto Wok", nombre: "Punto Wok", imagen: "https://via.placeholder.com/150" },
-    { id: "Banderitas", nombre: "Banderitas", imagen: "https://via.placeholder.com/150" },
-    { id: "Punto Café", nombre: "Punto Café", imagen: "https://via.placeholder.com/150" },
-    { id: "Café de la Bolsa", nombre: "Café de la Bolsa", imagen: "https://via.placeholder.com/150" },
-    { id: "Café Embarcadero", nombre: "Café Embarcadero", imagen: "https://via.placeholder.com/150" },
-    { id: "Café Estudio", nombre: "Café Estudio", imagen: "https://via.placeholder.com/150" },
-    { id: "Cipreses", nombre: "Cipreses", imagen: "https://via.placeholder.com/150" },
-    { id: "Café y Letras", nombre: "Café y Letras", imagen: "https://via.placeholder.com/150" },
-    { id: "Punto Sándwich", nombre: "Punto Sándwich", imagen: "https://via.placeholder.com/150" },
+    {
+      id: "Restaurante Escuela",
+      nombre: "Restaurante Escuela",
+      imagen: restauranteEscuela,
+      horarios: "Lunes a viernes: Desayunos 7:00 a.m. - 10:00 a.m. Almuerzos 12:30 p.m. - 3:00 p.m.",
+    },
+    {
+      id: "Restaurante Arcos",
+      nombre: "Restaurante Arcos",
+      imagen: restauranteArcos,
+      horarios: "Lunes a viernes: Almuerzos 12:00 p.m. - 3:00 p.m.",
+    },
+    {
+      id: "Embarcadero Carta",
+      nombre: "Embarcadero Carta",
+      imagen: embarcaderoCarta,
+      horarios: "Lunes a sábado: Desayunos 7:00 a.m. - 10:00 a.m. Almuerzos 11:30 a.m. - 3:00 p.m. Sábado hasta las 2:30 p.m.",
+    },
+    {
+      id: "Terraza Living",
+      nombre: "Terraza Living",
+      imagen: terrazaLiving,
+      horarios: "Lunes a sábado: Desayunos 8:00 a.m. - 10:00 a.m. Almuerzos 11:30 a.m. - 3:30 p.m. Sábados no hay servicio de almuerzo.",
+    },
+    {
+      id: "Kioskos",
+      nombre: "Kioskos",
+      imagen: kioskos,
+      horarios: "Lunes a viernes: 11:30 a.m. - 3:30 p.m.",
+    },
+    {
+      id: "Autoservicio Menú del día",
+      nombre: "Autoservicio Menú del día",
+      imagen: autoservicioMenu,
+      horarios: "Lunes a viernes: 11:00 a.m. - 3:00 p.m.",
+    },
+    {
+      id: "Punto Wok",
+      nombre: "Punto Wok",
+      imagen: puntoWok,
+      horarios: "Lunes a viernes: Desayunos 7:00 a.m. - 10:00 a.m. Almuerzos 11:45 a.m. - 3:30 p.m.",
+    },
+    {
+      id: "Banderitas",
+      nombre: "Banderitas",
+      imagen: banderitas,
+      horarios: "Lunes a viernes: 12:00 p.m. - 3:00 p.m.",
+    },
+    {
+      id: "Punto Café",
+      nombre: "Punto Café",
+      imagen: puntoCafe,
+      horarios: "Lunes a viernes: 6:00 a.m. - 6:30 p.m. Sábados: 6:00 a.m. - 2:00 p.m.",
+    },
+    {
+      id: "Café de la Bolsa",
+      nombre: "Café de la Bolsa",
+      imagen: cafeBolsa,
+      horarios: "Lunes a viernes: 6:30 a.m. - 6:30 p.m. Sábados: 6:00 a.m. - 3:00 p.m.",
+    },
+    {
+      id: "Café Embarcadero",
+      nombre: "Café Embarcadero",
+      imagen: cafeEmbarcadero,
+      horarios: "Lunes a viernes: 6:30 a.m. - 6:00 p.m. Sábados: 6:30 a.m. - 3:00 p.m.",
+    },
+    {
+      id: "Café Estudio",
+      nombre: "Café Estudio",
+      imagen: cafeEstudio,
+      horarios: "Lunes a viernes: 7:00 a.m. - 3:30 p.m.",
+    },
+    {
+      id: "Cipreses",
+      nombre: "Cipreses",
+      imagen: cipreses,
+      horarios: "Lunes a viernes: 7:00 a.m. - 4:30 p.m.",
+    },
+    {
+      id: "Café y Letras",
+      nombre: "Café y Letras",
+      imagen: cafeLetras,
+      horarios: "Lunes a viernes: 7:00 a.m. - 3:30 p.m.",
+    },
+    {
+      id: "Punto Sándwich",
+      nombre: "Punto Sándwich",
+      imagen: puntoSandwich,
+      horarios: "Lunes a viernes: 10:30 a.m. - 3:00 p.m.",
+    },
   ];
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -88,22 +180,53 @@ function ProductList() {
               <h1 className="text-2xl font-bold text-[#2E2955] mb-4">
                 Selecciona un Restaurante
               </h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {restaurants.map((restaurant) => (
-                  <button
+                  <div
                     key={restaurant.id}
                     onClick={() => setSelectedRestaurant(restaurant.id)}
-                    className="border p-4 rounded shadow hover:bg-[#f3f4f6] transition flex flex-col items-center"
+                    className="border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col"
                   >
-                    <img
-                      src={restaurant.imagen}
-                      alt={restaurant.nombre}
-                      className="w-32 h-32 object-cover rounded-full mb-2"
-                    />
-                    <h2 className="text-lg font-semibold text-[#2E2955]">
-                      {restaurant.nombre}
-                    </h2>
-                  </button>
+                    {/* Imagen del restaurante */}
+                    <div className="relative">
+                      <img
+                        src={restaurant.imagen}
+                        alt={restaurant.nombre}
+                        className="w-full h-48 object-cover"
+                      />
+                    </div>
+
+                    {/* Contenido del restaurante */}
+                    <div className="p-4 bg-white flex-grow">
+                      <h2 className="text-lg font-bold text-[#2E2955] mb-2">
+                        {restaurant.nombre}
+                      </h2>
+                      <p className="text-sm text-gray-600">
+                        {restaurant.horarios}
+                      </p>
+                    </div>
+
+                    {/* Botón interactivo */}
+                    <div className="bg-[#2E2955] text-white text-center py-2 hover:bg-[#1e1a3d] transition-colors duration-300">
+                      <button className="flex items-center justify-center gap-2">
+                        <span>Consultar Menú</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.25 8.75L21 12m0 0l-3.75 3.25M21 12H3"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
             </>
@@ -115,7 +238,7 @@ function ProductList() {
               >
                 ← Volver a Restaurantes
               </button>
-              <h1 className="text-2xl font-bold text-[#2E2955] mb-4">
+              <h1 className="text-2xl  font-bold text-[#2E2955] mb-4">
                 Menú del Restaurante
               </h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

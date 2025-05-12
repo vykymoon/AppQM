@@ -29,7 +29,7 @@ function Welcome() {
             <span className="text-white">wherever you need it.</span>
           </h2>
           <img
-            src="src/components/login/Assets/dining.png"
+            src="src\components\login\Assets\image.png"
             alt="Unisabana Dining"
             className="rounded-2xl max-w-full h-auto"
           />
