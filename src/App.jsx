@@ -5,7 +5,8 @@ import Welcome from "./components/login/Welcome";
 import Home from "./components/login/Home";
 import ProductList from "./components/ProductList";
 import ProductListManagement from "./components/ProductListManagement";
-import OrderManagement from "./components/OrderManagement"; // Nueva importación
+import ServicePoints from "./components/ServicePoints";
+
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/products" element={<ProductList />} />
         <Route path="/manage-products" element={<ProductListManagement />} />
-        <Route path="/manage-orders" element={<OrderManagement />} /> {/* Nueva ruta */}
+        <Route path="/service-points" element={<ServicePoints />} />
+        
+        
       </Routes>
     </BrowserRouter>
   );
