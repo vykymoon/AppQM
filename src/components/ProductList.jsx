@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../FireBase";
+import { db } from "../Firebase";
 import ShoppingCart from "./ShoppingCart";
 
 // Importar imágenes

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../FireBase";
+import { auth } from "../../Firebase";
+import logoW from './Assets/LogoW.png';
 
 function Signup() {
   const [fullName, setFullName] = useState("");
@@ -36,7 +37,7 @@ function Signup() {
       {/* Logo QuickMeal */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
         <img
-          src="https://cdn.discordapp.com/attachments/1353908594571083930/1368724264915828927/image.png?ex=6819434e&is=6817f1ce&hm=eade4d4b5abf1741fe2f3c5b9b8f2ed8c56219cb23a87335c3ef1f7f0fe47d53&"
+          src={logoW}
           alt="QuickMeal Logo"
           className="w-66"
         />

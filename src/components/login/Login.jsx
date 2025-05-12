@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../FireBase'; // Adjust the path if necessary
-import { db } from '../../FireBase';
+import { auth } from '../../Firebase'; // Adjust the path if necessary
+import logoW from './Assets/LogoW.png';
 
 
 function Login() {
@@ -38,7 +38,7 @@ function Login() {
       {/* Logo QuickMeal arriba */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
         <img
-          src="/src/components/login/Assets/LogoW.png"
+          src={logoW}
           alt="QuickMeal Logo"
           className="w-66"
         />

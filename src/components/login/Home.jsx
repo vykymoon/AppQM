@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import logoW from './Assets/LogoW.png';
 function Home() {
   return (
     <div className="h-screen w-screen relative overflow-hidden">
@@ -25,8 +25,7 @@ function Home() {
       {/* Contenido centrado con logo QuickMeal */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 transform -translate-x-5">
         <img
-          src="./src/components/login/Assets/LogoW.png"
-          alt="QuickMeal Icon"
+          src={logoW}
           className="w-64 mb-12"
         />
       </div>

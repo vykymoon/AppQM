@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../FireBase"; // Asegúrate de que esta ruta sea correcta
+import { db } from "../Firebase"; // Asegúrate de que esta ruta sea correcta
 
 function ProductListManagement() {
   const [products, setProducts] = useState([]);

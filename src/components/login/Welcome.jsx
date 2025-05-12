@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Dining from "./Assets/image.png";
 
 function Welcome() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Welcome() {
             <span className="text-white">wherever you need it.</span>
           </h2>
           <img
-            src="src\components\login\Assets\image.png"
+            src={Dining}
             alt="Unisabana Dining"
             className="rounded-2xl max-w-full h-auto"
           />
