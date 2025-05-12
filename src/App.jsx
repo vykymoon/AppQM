@@ -6,17 +6,18 @@ import Home from "./components/login/Home";
 import ProductList from "./components/ProductList";
 import ProductListManagement from "./components/ProductListManagement";
 import ProtectedRoute from './components/ProtectedRoute';
+import UserProfile from "./components/UserProfile";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas públicas (accesibles sin autenticación) */}
+        {/* Rutas públicas (accesibles sin autenticación) chill */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Home />} />
         
-        {/* Rutas protegidas (requieren autenticación) */}
+        {/* Rutas protegidas (requieren autenticación) porfin funciona esta mierda */}
         <Route path="/welcome" element={
           <ProtectedRoute>
             <Welcome />
@@ -26,6 +27,12 @@ function App() {
         <Route path="/products" element={
           <ProtectedRoute>
             <ProductList />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <UserProfile />
           </ProtectedRoute>
         } />
         
