@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../FireBase'; // ajusta la ruta si está en otro lugar
+import { auth } from '../../FireBase'; // Adjust the path if necessary
+import { db } from '../../FireBase';
+
 
 function Login() {
   const [email, setEmail] = useState('');
