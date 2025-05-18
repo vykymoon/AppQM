@@ -8,7 +8,7 @@ const RoleProtectedRoute = ({ children, allowedRoles = [] }) => {
 
   // Si no hay usuario o el rol no está definido o no está permitido, redirige
   if (!user || !role || !allowedRoles.includes(role)) {
-    return <Navigate to="/Welcome" replace />;
+    return <Navigate to="/welcome-pos" replace />;
   }
 
   return children;
