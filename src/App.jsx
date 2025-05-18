@@ -5,6 +5,7 @@ import Signup from "./components/login/signup2";
 import Welcome from "./components/login/Welcome";
 import Home from "./components/login/Home";
 import ProductList from "./components/ProductList";
+import WelcomePOS from "./components/login/WelcomePOS";
 import ProductListManagement from "./components/ProductListManagement";
 import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from "./components/UserProfile";
@@ -52,7 +53,11 @@ function App() {
               <UserProfile />
             </ProtectedRoute>
           } />
-
+<Route path="/welcome-pos" element={
+  <RoleProtectedRoute allowedRoles={["POS"]}>
+    <WelcomePOS />
+  </RoleProtectedRoute>
+} />
           <Route path="/manage-products" element={
   <RoleProtectedRoute allowedRoles={["POS"]}>
     <ProductListManagement />
