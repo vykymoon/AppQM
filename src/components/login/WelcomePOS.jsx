@@ -9,7 +9,7 @@ function WelcomePOS() {
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
+    navigate("/profilePOS");
   };
 
   return (

@@ -9,6 +9,7 @@ import WelcomePOS from "./components/login/WelcomePOS";
 import ProductListManagement from "./components/ProductListManagement";
 import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from "./components/UserProfile";
+import UserProfilePOS from "./components/UserProfilePOS"; 
 import { AuthProvider } from "./context/AuthContext";
 import RoleProtectedRoute from './components/RoleProtectedRoute';
 
@@ -56,6 +57,12 @@ function App() {
 <Route path="/welcome-pos" element={
   <RoleProtectedRoute allowedRoles={["POS"]}>
     <WelcomePOS />
+  </RoleProtectedRoute>
+} />
+
+<Route path="/profilePOS" element={
+  <RoleProtectedRoute allowedRoles={["POS"]}>
+    <UserProfilePOS />
   </RoleProtectedRoute>
 } />
           <Route path="/manage-products" element={
