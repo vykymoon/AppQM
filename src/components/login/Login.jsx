@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../Firebase'; // Adjust the path if necessary
+import { auth } from '../../Firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../Firebase';
 import logoW from './Assets/LogoW.png';
-
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -14,8 +15,26 @@ function Login() {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Usuario logueado:', userCredential.user);
-      navigate('/Welcome'); // Redirige al home después de iniciar sesión
+      const user = userCredential.user;
+
+      // Colección 'users' y documento user.uid
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const rol = userData.rol;  // Campo correcto 'rol'
+        console.log('Rol del usuario:', rol);
+
+        if (rol === 'POS') {
+          navigate('/welcome-pos');
+        } else {
+          navigate('/welcome');
+        }
+      } else {
+        console.warn('No se encontró el documento del usuario. Redirigiendo a /welcome por defecto.');
+        navigate('/welcome');
+      }
     } catch (error) {
       console.error('Error en login:', error.message);
       alert('Error: ' + error.message);
@@ -37,11 +56,7 @@ function Login() {
 
       {/* Logo QuickMeal arriba */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
-        <img
-          src={logoW}
-          alt="QuickMeal Logo"
-          className="w-66"
-        />
+        <img src={logoW} alt="QuickMeal Logo" className="w-66" />
       </div>
 
       {/* Formulario de login */}
