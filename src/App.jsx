@@ -12,7 +12,7 @@ import UserProfile from "./components/UserProfile";
 import UserProfilePOS from "./components/UserProfilePOS"; 
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import RoleProtectedRoute from './components/RoleProtectedRoute';
-
+import OrderHistory from "./components/OrderHistory";
 
 import { auth } from "./Firebase"; 
 import { onAuthStateChanged } from "firebase/auth";
@@ -30,7 +30,7 @@ function AppRoutes() {
       {/* Rutas públicas */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
+      <Route path= "/order-history" element={<OrderHistory />} />
       {/* Ruta raíz con redirección según rol */}
       <Route
         path="/"

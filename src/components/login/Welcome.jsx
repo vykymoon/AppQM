@@ -1,28 +1,43 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Dining from "./Assets/image.png";
+import QuickMealLogo from "./Assets/LogoW.png";
+import LogoWhite from "./Assets/logo_white.png"; // Logo blanco de la universidad
 
 function Welcome() {
   const navigate = useNavigate();
 
-  const handleMenuClick = () => {
-    navigate("/products");
+  const handleMenuClick = (e) => {
+    e.currentTarget.classList.add("scale-95");
+    setTimeout(() => {
+      e.currentTarget.classList.remove("scale-95");
+      navigate("/products"); // <-- Esta ruta debe coincidir con App.jsx
+    }, 120);
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-[#bfc8e6]">
       {/* Header */}
-      <header className="flex items-center justify-between px-8 py-4 bg-white border-b-4 border-[#2E2955]">
+      <header className="flex items-center justify-between px-8 py-4 bg-[#2E2955] text-white">
         <div className="flex items-center gap-4">
           <img
-            src="https://www.unisabana.edu.co/sites/default/files/2024-02/logo-unisabana.svg"
+            src={LogoWhite}
             alt="Logo Universidad de La Sabana"
-            className="h-14"
+            className="h-12"
+            style={{ background: "transparent" }}
           />
         </div>
-        <h1 className="text-3xl font-extrabold text-[#2E2955] tracking-widest">QUICKMEAL NEWS</h1>
-        <div className="flex items-center gap-6 text-3xl text-[#2E2955]">
-          <span className="cursor-pointer">📖</span>
+        <h1 className="text-3xl font-extrabold tracking-widest text-center flex-1" style={{ fontFamily: "inherit" }}>
+          QUICKMEAL NEWS
+        </h1>
+        <div className="flex items-center gap-6 text-3xl">
+          <button
+            onClick={() => navigate("/order-history")}
+            className="flex flex-col items-center hover:text-[#5B57A5] transition duration-200"
+            title="Order History"
+          >
+            <span className="text-xl">📖</span>
+          </button>
           <span className="cursor-pointer">👤</span>
           <span className="cursor-pointer">☰</span>
         </div>
@@ -40,15 +55,23 @@ function Welcome() {
           <div className="text-white text-center">
             <p className="font-bold text-lg mb-2">¡Vive la experiencia gastronómica de Unisabana!</p>
             <p className="text-base mb-2">Conoce:</p>
-            <h2 className="text-2xl font-cursive mb-2" style={{ fontFamily: "'Dancing Script', cursive" }}>
+            <h2
+              className="text-2xl mb-2"
+              style={{
+                fontFamily: "'Dancing Script', cursive",
+                fontWeight: 700,
+                letterSpacing: "1px",
+              }}
+            >
               Unisabana Dining
             </h2>
             <p className="mb-2">Con un equipo listo para servirte</p>
             <p className="text-xs">Talento 100% Unisabana</p>
             <img
-              src="https://www.unisabana.edu.co/sites/default/files/2024-02/logo-unisabana.svg"
+              src={LogoWhite}
               alt="Logo Universidad de La Sabana"
               className="h-6 mx-auto mt-2"
+              style={{ background: "transparent" }}
             />
           </div>
         </div>
@@ -56,8 +79,13 @@ function Welcome() {
         {/* Right Content */}
         <div className="flex-1 flex flex-col justify-center items-start mt-8 max-w-2xl">
           <h2
-            className="text-6xl font-cursive text-[#2E2955] mb-6 leading-tight"
-            style={{ fontFamily: "'Dancing Script', cursive" }}
+            className="text-6xl mb-6 leading-tight"
+            style={{
+              fontFamily: "'Dancing Script', cursive",
+              color: "#2E2955",
+              fontWeight: 700,
+              letterSpacing: "1px",
+            }}
           >
             Unisabana<br />Dining
           </h2>
@@ -65,8 +93,9 @@ function Welcome() {
             En Unisabana Dining, ofrecemos una variedad de alimentos y bebidas para satisfacer todos los gustos. Nuestro equipo se dedica a preparar comidas deliciosas y saludables con ingredientes frescos. Ven y disfruta de una experiencia culinaria única en nuestro campus.
           </p>
           <button
-            className="bg-[#0094FF] hover:bg-[#0077cc] text-white px-8 py-3 rounded-full font-bold text-lg transition"
+            className="bg-[#0094FF] hover:bg-[#0077cc] active:scale-95 text-white px-8 py-3 rounded-full font-bold text-lg transition transform duration-100"
             onClick={handleMenuClick}
+            style={{ outline: "none" }}
           >
             VIEW MENU
           </button>
@@ -74,34 +103,28 @@ function Welcome() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#2E2955] text-white py-8 px-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+      <footer className="bg-[#2E2955] text-white py-8 px-0">
+        <div className="w-full max-w-[1600px] mx-auto flex flex-col md:flex-row md:justify-between gap-8 text-sm px-8">
           {/* Left */}
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <svg width="32" height="32" fill="currentColor" className="text-white">
-                <circle cx="16" cy="16" r="16" fill="#fff2" />
-                <path
-                  d="M16 8a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"
-                  fill="#fff"
-                />
-              </svg>
-              <span className="font-bold">Universidad de La Sabana</span>
+          <div className="flex flex-row items-start w-full md:w-1/3 mb-6 md:mb-0">
+            <img src={QuickMealLogo} alt="QuickMeal Logo" className="h-16 mr-4" />
+            <div>
+              <span className="font-bold block mb-1">Universidad de La Sabana</span>
+              <p>
+                Institución de educación superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional.<br />
+                <a
+                  href="#"
+                  className="underline text-blue-200"
+                >
+                  Protocolo de atención para casos de acoso, violencia sexual y basada en género, así como de comportamientos contrarios a los principios fundamentales de la Universidad
+                </a>
+                <br />
+                Carácter Académico: Universidad
+              </p>
             </div>
-            <p>
-              Institución de educación superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional.<br />
-              <a
-                href="#"
-                className="underline text-blue-200"
-              >
-                Protocolo de atención para casos de acoso, violencia sexual y basada en género, así como de comportamientos contrarios a los principios fundamentales de la Universidad
-              </a>
-              <br />
-              Carácter Académico: Universidad
-            </p>
           </div>
           {/* Center */}
-          <div>
+          <div className="w-full md:w-1/3">
             <span className="font-bold">DATOS DE CONTACTO</span><br />
             Contact center: (601) 861 5555 / 861 6668<br />
             Apartado: 53753, Bogotá.<br />
@@ -123,7 +146,7 @@ function Welcome() {
             </a>
           </div>
           {/* Right */}
-          <div>
+          <div className="w-full md:w-1/3">
             <span className="font-bold">UBICACIÓN</span><br />
             Campus del Puente del Común,<br />
             Km. 7, Autopista Norte de Bogotá.<br />
