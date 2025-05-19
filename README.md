@@ -30,3 +30,41 @@
 - **Base de Datos y Notificaciones:** Firebase (Firestore)
 - **Autenticación:** Firebase Auth, JWT, bcrypt
 - **Despliegue:** Vercel
+
+## Estructura del Proyecto 
+AppQM/
+├── .gitignore
+├── package.json
+├── vite.config.js
+├── vercel.json
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+│   ├── Firebase.js
+│   ├── context/
+│   │   └── AuthContext.js
+│   ├── components/
+│   │   ├── HeaderBar.jsx
+│   │   ├── OrderHistory.jsx
+│   │   ├── ProductList.jsx
+│   │   ├── ProductListManagement.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── RoleProtectedRoute.jsx
+│   │   ├── POSProtectedRoute.jsx
+│   │   ├── ShoppingCart.jsx
+│   │   ├── UserProfile.jsx
+│   │   ├── UserProfilePOS.jsx
+│   │   ├── ServicePoints.jsx
+│   │   ├── uploadServicePoints.js
+│   │   ├── login/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Signup2.jsx
+│   │   │   ├── Welcome.jsx
+│   │   │   ├── WelcomePOS.jsx
+│   │   │   └── Assets/
+│   │   │       └── ... (imágenes y recursos)
+└── README.md
