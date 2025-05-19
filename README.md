@@ -22,6 +22,16 @@
 - Notificaciones para cambios en inventario y pedidos.
 
 ---
+### 🗂️ **Perfiles Disponibles de Prueba**  
+
+#### **👥 Perfil Cliente**  
+- **📧 Usuario:** `client@gmail.com`  
+- **🔑 Contraseña:** `client123`  
+
+#### **🏪 Perfil POS (Punto de Servicio)**  
+- **📧 Usuario:** `POS@gmail.com`  
+- **🔑 Contraseña:** `POS123`  
+
 
 ## Tecnologías Utilizadas
 
