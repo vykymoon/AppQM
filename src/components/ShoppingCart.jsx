@@ -19,10 +19,23 @@ function ShoppingCart({ cart, setCart, onClose }) {
   React.useEffect(() => {
     if (!orderId) return;
     const unsub = onSnapshot(doc(db, "orders", orderId), (docSnap) => {
-      if (docSnap.exists() && docSnap.data().status === "listo") {
+      if (!docSnap.exists()) return;
+      const status = docSnap.data().status;
+      if (status === "listo") {
         setIsProcessing(false);
+        // Mostrar alerta de esperando entrega
+        Swal.fire({
+          title: "Esperando entrega...",
+          text: "Tu pedido está listo y en espera de ser entregado.",
+          icon: "info",
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        });
+      }
+      if (status === "entregado") {
         setOrderId(null);
-        // Mostrar calificación
+        Swal.close(); // Cierra la alerta de esperando
         handleShowRatingModal();
       }
     });
@@ -182,8 +195,35 @@ function ShoppingCart({ cart, setCart, onClose }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-[#bfc8e6] relative">
-      {/* Solo el contenido del carrito, SIN barra superior */}
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#bfc8e6]">
+      {/* Logo de la universidad */}
+      <div className="flex items-center justify-start px-8 py-4">
+        <img
+          src="https://www.unisabana.edu.co/sites/default/files/2024-02/logo-unisabana.svg"
+          alt="Logo Universidad de La Sabana"
+          className="h-12"
+        />
+      </div>
+
+      {/* Barra superior */}
+      <div className="bg-[#2E2955] text-white py-4 px-8 flex items-center justify-between">
+        {/* Botón de "Atrás" */}
+        <button
+          onClick={onClose}
+          className="text-white text-lg bg-[#2E2955] border border-white px-4 py-2 rounded hover:bg-[#221f44]"
+        >
+          Atrás
+        </button>
+        {/* Título centrado */}
+        <h1 className="text-2xl font-bold text-center flex-1">YOUR CART</h1>
+        {/* Botones de navegación */}
+        <div className="flex items-center gap-4">
+          <span className="text-2xl cursor-pointer" onClick={() => navigate("/")}>🏠</span>
+          <span className="text-2xl cursor-pointer" onClick={() => navigate("/info")}>📖</span>
+          <span className="text-2xl cursor-pointer" onClick={() => navigate("/profile")}>👤</span>
+        </div>
+      </div>
+
       <div className="p-6 flex flex-col lg:flex-row gap-6">
         {/* Productos seleccionados */}
         <div className="flex-1">
@@ -323,13 +363,6 @@ function ShoppingCart({ cart, setCart, onClose }) {
           </div>
         </div>
       </div>
-      {/* Botón para cerrar el carrito, movido abajo a la izquierda */}
-      <button
-        onClick={onClose}
-        className="fixed bottom-8 left-8 bg-[#2E2955] text-white px-4 py-2 rounded shadow hover:bg-[#221f44] z-50"
-      >
-        Atrás
-      </button>
     </div>
   );
 }

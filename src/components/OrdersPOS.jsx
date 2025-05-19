@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, onSnapshot, updateDoc, doc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, updateDoc, doc, or } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,11 @@ function OrdersPOS() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const q = query(collection(db, "orders"), where("status", "==", "pendiente"));
+    // Mostrar pedidos con estado "pendiente" o "listo"
+    const q = query(
+      collection(db, "orders"),
+      where("status", "in", ["pendiente", "listo"])
+    );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setOrders(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
@@ -17,6 +21,10 @@ function OrdersPOS() {
 
   const handleMarkReady = async (orderId) => {
     await updateDoc(doc(db, "orders", orderId), { status: "listo" });
+  };
+
+  const handleMarkDelivered = async (orderId) => {
+    await updateDoc(doc(db, "orders", orderId), { status: "entregado" });
   };
 
   return (
@@ -76,9 +84,18 @@ function OrdersPOS() {
                 <button
                   onClick={() => handleMarkReady(order.id)}
                   className="mt-2 bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 active:scale-95 transition duration-200 shadow"
+                  disabled={order.status === "listo" || order.status === "entregado"}
                 >
                   Marcar como listo
                 </button>
+                {order.status === "listo" && (
+                  <button
+                    onClick={() => handleMarkDelivered(order.id)}
+                    className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 active:scale-95 transition duration-200 shadow"
+                  >
+                    Entregado
+                  </button>
+                )}
               </li>
             ))}
           </ul>
