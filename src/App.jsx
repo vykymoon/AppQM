@@ -30,7 +30,14 @@ function AppRoutes() {
       {/* Rutas públicas */}
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path= "/order-history" element={<OrderHistory />} />
+      <Route
+        path="/order-history"
+        element={
+          <ProtectedRoute user={user}>
+            <OrderHistory />
+          </ProtectedRoute>
+        }
+      />
       {/* Ruta raíz con redirección según rol */}
       <Route
         path="/"
@@ -72,7 +79,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
- <Route
+      <Route
         path="/orders-pos"
         element={
           <RoleProtectedRoute allowedRoles={["POS"]}>

@@ -50,11 +50,19 @@ function ShoppingCart({ cart, setCart, onClose }) {
   // Cambiar la cantidad de un producto
   const handleQuantityChange = (id, delta) => {
     setCart(
-      cart.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
+      cart.map((item) => {
+        if (item.id === id) {
+          // Limita la cantidad máxima al stock disponible
+          const newQuantity = item.quantity + delta;
+          if (newQuantity < 1) return { ...item, quantity: 1 };
+          if (newQuantity > item.cantidad) {
+            alert("No hay más stock disponible para este producto.");
+            return item;
+          }
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
+      })
     );
   };
 
@@ -181,6 +189,15 @@ function ShoppingCart({ cart, setCart, onClose }) {
           await updateDoc(doc(db, "orders", orderId), {
             rating: result.value,
           });
+
+          // Restar stock en Firestore para cada producto del carrito
+          for (const item of cart) {
+            const productRef = doc(db, "products", item.id);
+            await updateDoc(productRef, {
+              cantidad: item.cantidad - item.quantity,
+            });
+          }
+
           Swal.fire("¡Gracias por tu calificación!", "Tu respuesta ha sido enviada.", "success");
           setCart([]);
           setDeliveryLocation("");
@@ -245,21 +262,25 @@ function ShoppingCart({ cart, setCart, onClose }) {
                 <div className="flex items-center space-x-2 mt-2">
                   <button
                     onClick={() => handleQuantityChange(item.id, -1)}
-                    className="bg-gray-200 text-[#2E2955] px-2 py-1 rounded"
+                    className="bg-gray-200 text-[#2E2955] px-2 py-1 rounded 
+                               hover:bg-gray-300 active:scale-95 transition duration-150"
                   >
                     -
                   </button>
                   <span>{item.quantity}</span>
                   <button
                     onClick={() => handleQuantityChange(item.id, 1)}
-                    className="bg-gray-200 text-[#2E2955] px-2 py-1 rounded"
+                    className="bg-gray-200 text-[#2E2955] px-2 py-1 rounded 
+                               hover:bg-gray-300 active:scale-95 transition duration-150"
+                    disabled={item.quantity >= item.cantidad}
                   >
                     +
                   </button>
                 </div>
                 <button
                   onClick={() => handleRemoveItem(item.id)}
-                  className="mt-2 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+                  className="mt-2 bg-red-500 text-white px-4 py-1 rounded 
+                             hover:bg-red-600 active:scale-95 transition duration-150"
                 >
                   Eliminar
                 </button>
@@ -280,8 +301,37 @@ function ShoppingCart({ cart, setCart, onClose }) {
                 className="border p-2 rounded w-full bg-white text-black"
               >
                 <option value="">Selecciona una ubicación</option>
+                {/* Edificios y puntos adicionales */}
                 <option value="Edificio A">Edificio A</option>
                 <option value="Edificio B">Edificio B</option>
+                <option value="Edificio C">Edificio C</option>
+                <option value="Edificio D">Edificio D</option>
+                <option value="Edificio E">Edificio E</option>
+                <option value="Edificio F">Edificio F</option>
+                <option value="Edificio G">Edificio G</option>
+                <option value="Edificio H">Edificio H</option>
+                <option value="Edificio K">Edificio K</option>
+                <option value="AdPortas">AdPortas</option>
+                <option value="Atelier">Atelier</option>
+                <option value="FabLab">FabLab</option>
+                <option value="Arena Sabana">Arena Sabana</option>
+                {/* Restaurantes */}
+                <option value="Restaurante Escuela">Restaurante Escuela</option>
+                <option value="Restaurante Arcos">Restaurante Arcos</option>
+                <option value="Embarcadero Carta">Embarcadero Carta</option>
+                <option value="Terraza Living">Terraza Living</option>
+                <option value="Kioskos">Kioskos</option>
+                <option value="Autoservicio Menú del día">Autoservicio Menú del día</option>
+                <option value="Punto Wok">Punto Wok</option>
+                <option value="Banderitas">Banderitas</option>
+                <option value="Punto Café">Punto Café</option>
+                <option value="Café de la Bolsa">Café de la Bolsa</option>
+                <option value="Café Embarcadero">Café Embarcadero</option>
+                <option value="Café Estudio">Café Estudio</option>
+                <option value="Cipreses">Cipreses</option>
+                <option value="Café y Letras">Café y Letras</option>
+                <option value="Punto Sándwich">Punto Sándwich</option>
+                {/* Otros puntos existentes */}
                 <option value="Biblioteca">Biblioteca</option>
                 <option value="Cafetería Central">Cafetería Central</option>
               </select>
@@ -346,8 +396,8 @@ function ShoppingCart({ cart, setCart, onClose }) {
 
             <button
               onClick={handleConfirmOrder}
-              className={`bg-[#796f9a] text-white px-6 py-3 rounded w-full ${isProcessing ? "opacity-60 cursor-not-allowed" : "hover:bg-[#584e7e]"}`}
-              disabled={isProcessing}
+              className="bg-[#796f9a] text-white px-6 py-3 rounded 
+             hover:bg-[#584e7e] active:scale-95 transition duration-150 w-full"
             >
               {isProcessing ? "Procesando..." : "Confirmar Pedido"}
             </button>
@@ -363,6 +413,16 @@ function ShoppingCart({ cart, setCart, onClose }) {
           </div>
         </div>
       </div>
+      {/* Botón para cerrar el carrito, movido abajo a la izquierda */}
+      {/* 
+      <button
+        onClick={onClose}
+        className="fixed bottom-8 left-8 bg-[#2E2955] text-white px-4 py-2 rounded 
+             shadow hover:bg-[#221f44] active:scale-95 transition duration-150 z-50"
+      >
+        Atrás
+      </button>
+      */}
     </div>
   );
 }

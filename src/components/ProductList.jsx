@@ -159,13 +159,15 @@ function ProductList() {
 
   return (
     <div className="min-h-screen bg-white p-4">
-      {/* Barra superior */}
-      <HeaderBar
-        title="PRODUCT LIST"
-        showCart={true}
-        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
-        onCartClick={() => setShowCart(true)}
-      />
+      {/* Barra superior SOLO si NO está el carrito */}
+      {!showCart && (
+        <HeaderBar
+          title="PRODUCT LIST"
+          showCart={true}
+          cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+          onCartClick={() => setShowCart(true)}
+        />
+      )}
 
       {/* Mostrar el carrito o el contenido principal */}
       {showCart ? (
