@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../FireBase'; // ajusta la ruta si está en otro lugar
+import { auth } from '../../Firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../Firebase';
+import logoW from './Assets/LogoW.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -12,8 +15,26 @@ function Login() {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Usuario logueado:', userCredential.user);
-      navigate('/Welcome'); // Redirige al home después de iniciar sesión
+      const user = userCredential.user;
+
+      // Colección 'users' y documento user.uid
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const rol = userData.rol;  // Campo correcto 'rol'
+        console.log('Rol del usuario:', rol);
+
+        if (rol === 'POS') {
+          navigate('/welcome-pos');
+        } else {
+          navigate('/welcome');
+        }
+      } else {
+        console.warn('No se encontró el documento del usuario. Redirigiendo a /welcome por defecto.');
+        navigate('/welcome');
+      }
     } catch (error) {
       console.error('Error en login:', error.message);
       alert('Error: ' + error.message);
@@ -35,11 +56,7 @@ function Login() {
 
       {/* Logo QuickMeal arriba */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
-        <img
-          src="https://cdn.discordapp.com/attachments/1353908594571083930/1368724264915828927/image.png?ex=6819434e&is=6817f1ce&hm=eade4d4b5abf1741fe2f3c5b9b8f2ed8c56219cb23a87335c3ef1f7f0fe47d53&"
-          alt="QuickMeal Logo"
-          className="w-66"
-        />
+        <img src={logoW} alt="QuickMeal Logo" className="w-66" />
       </div>
 
       {/* Formulario de login */}
