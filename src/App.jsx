@@ -13,7 +13,7 @@ import UserProfilePOS from "./components/UserProfilePOS";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import RoleProtectedRoute from './components/RoleProtectedRoute';
 import OrderHistory from "./components/OrderHistory";
-
+import OrdersPOS from "./components/OrdersPOS";
 import { auth } from "./Firebase"; 
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -72,7 +72,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
+ <Route
+        path="/orders-pos"
+        element={
+          <RoleProtectedRoute allowedRoles={["POS"]}>
+            <OrdersPOS />
+          </RoleProtectedRoute>
+        }
+      />
       {/* Rutas protegidas POS */}
       <Route
         path="/welcome-pos"
