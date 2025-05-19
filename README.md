@@ -31,6 +31,7 @@
 - **Autenticación:** Firebase Auth, JWT, bcrypt
 - **Despliegue:** Vercel
 
+##Funcionalidades QuickMeal
 1. Login
 Permite iniciar sesión con una cuenta registrada.
 Usuarios: Todos (clientes y POS)
