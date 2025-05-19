@@ -105,6 +105,32 @@ Permite consultar pedidos anteriores.
 Permite ver y editar la información personal.  
 **Usuarios:** Clientes y POS
 
+## **Tutorial de Usuario**
+
+### **1. Inicio de Sesión**
+- Accede a la página de inicio de sesión desde la URL del frontend desplegado.
+- Ingresa tu correo electrónico y contraseña registrados.
+- Si no tienes una cuenta, haz clic en **Sign Up** para registrarte.
+
+### **2. Selección de Restaurante**
+- Una vez autenticado, selecciona un restaurante desde la lista disponible en la pantalla principal.
+- Cada restaurante muestra su horario de atención y un botón para consultar el menú.
+
+### **3. Gestión del Carrito**
+- Agrega productos al carrito desde el menú del restaurante.
+- Puedes ajustar la cantidad de productos o eliminarlos directamente desde el carrito.
+- Si un producto no tiene stock, se mostrará una alerta.
+
+### **4. Confirmación del Pedido**
+- Completa los detalles del pedido, como el lugar de entrega, hora de entrega y método de pago.
+- Haz clic en **Confirmar Pedido** para finalizar la compra.
+
+### **5. Seguimiento del Pedido**
+- Puedes consultar el estado de tus pedidos en la sección **Order History**.
+- Los pedidos pueden estar en estado "pendiente", "listo" o "entregado".
+
+---
+
 ## ☁️ ¿Por qué usamos Firebase en QuickMeal?
 
 Firebase es una plataforma backend-as-a-service (BaaS) que nos permite desarrollar aplicaciones modernas de forma rápida, segura y escalable. En **QuickMeal**, Firebase nos ofrece varias ventajas clave:
@@ -146,4 +172,5 @@ Esto nos permite:
   "rating": 0,
   "status": "entregado"
 }
+
 
