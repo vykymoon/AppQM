@@ -6,15 +6,9 @@ import LogoWhite from "./Assets/logo_white.png"; // Logo blanco de la universida
 
 function Welcome() {
   const navigate = useNavigate();
-
-  const handleMenuClick = (e) => {
-    e.currentTarget.classList.add("scale-95");
-    setTimeout(() => {
-      e.currentTarget.classList.remove("scale-95");
-      navigate("/products"); // <-- Esta ruta debe coincidir con App.jsx
-    }, 120);
+  const handleMenuClick = () => {
+    navigate("/products");
   };
-
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-[#bfc8e6]">
       {/* Header */}
@@ -38,8 +32,14 @@ function Welcome() {
           >
             <span className="text-xl">📖</span>
           </button>
-          <span className="cursor-pointer">👤</span>
-          <span className="cursor-pointer">☰</span>
+          <button
+  onClick={() => navigate("/profile")}
+  className="flex flex-col items-center hover:text-[#5B57A5] transition duration-200"
+  title="Profile"
+>
+  <span className="text-xl">👤</span>
+</button>
+          
         </div>
       </header>
 

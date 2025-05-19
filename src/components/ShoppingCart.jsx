@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
+
 function ShoppingCart({ cart, setCart, onClose }) {
   const navigate = useNavigate();
   const [deliveryLocation, setDeliveryLocation] = useState("");
