@@ -104,3 +104,46 @@ Permite consultar pedidos anteriores.
 ### 12. **Perfil de Usuario**
 Permite ver y editar la información personal.  
 **Usuarios:** Clientes y POS
+
+## ☁️ ¿Por qué usamos Firebase en QuickMeal?
+
+Firebase es una plataforma backend-as-a-service (BaaS) que nos permite desarrollar aplicaciones modernas de forma rápida, segura y escalable. En **QuickMeal**, Firebase nos ofrece varias ventajas clave:
+
+### 🔐 Autenticación Segura y Rápida
+Usamos **Firebase Authentication** para gestionar el acceso de usuarios (clientes y POS) de forma sencilla y segura, permitiendo iniciar sesión con correo electrónico y contraseña.
+
+### 📦 Firestore: Base de Datos en Tiempo Real
+Utilizamos **Cloud Firestore** para almacenar datos como productos, menús, pedidos y usuarios. Su arquitectura basada en documentos y colecciones permite:
+- Acceso rápido y estructurado a los datos.
+- Sincronización en tiempo real entre clientes y puntos de servicio.
+- Escalabilidad automática según el volumen de datos o usuarios.
+
+### 🧩 Estructura Flexible con Arreglos de Objetos
+Los productos en pedidos se almacenan como **arreglos compuestos modificables**, es decir, como arrays de objetos.  
+Esto nos permite:
+- Guardar varios productos en un solo pedido de forma compacta.
+- Leer, modificar o eliminar productos fácilmente.
+- Consultar el historial o el detalle de pedidos sin necesidad de múltiples referencias.
+
+### 📄 Ejemplo de documento de pedido en Firestore
+
+```json
+{
+  "id": "cJMHqQWCHV18KNvGbu2I",
+  "nombre": "Huevos pochados con queso",
+  "categoria": "Desayuno",
+  "img": "https://via.placeholder.com/120",
+  "cantidad": 4,
+  "price": 9100,
+  "quantity": 1,
+  "total": 9100,
+  "proveedor": "Restaurante Escuela",
+  "userId": "8X55GlwouCOFyyzPXsU7W0crDqp1",
+  "createdAt": "18 de mayo de 2025, 10:57:41 p.m.",
+  "deliveryLocation": "AdPortas",
+  "deliveryTime": "11:11",
+  "paymentMethod": "cash",
+  "rating": 0,
+  "status": "entregado"
+}
+
