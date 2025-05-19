@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../Firebase"; // Ajusta esta ruta según tu estructura
 
 function ShoppingCart({ cart, setCart, onClose }) {
   const navigate = useNavigate();
@@ -33,17 +34,28 @@ function ShoppingCart({ cart, setCart, onClose }) {
     setCart(cart.filter((item) => item.id !== id));
   };
 
-  // Confirmar el pedido
-  const handleConfirmOrder = () => {
+  // Confirmar el pedido con calificación interactiva en Swal y guardar en Firestore
+  const handleConfirmOrder = async () => {
     if (!deliveryLocation || !deliveryTime) {
       Swal.fire("Error", "Por favor selecciona un lugar y hora de entrega", "error");
       return;
     }
 
-    if (paymentMethod === "card" && (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvv)) {
+    if (
+      paymentMethod === "card" &&
+      (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvv)
+    ) {
       Swal.fire("Error", "Por favor completa los datos de la tarjeta", "error");
       return;
     }
+
+    const user = auth.currentUser;
+    if (!user) {
+      Swal.fire("Error", "Debes iniciar sesión para hacer un pedido", "error");
+      return;
+    }
+
+    let tempRating = 0;
 
     Swal.fire({
       title: "¡Pedido confirmado!",
@@ -54,7 +66,7 @@ function ShoppingCart({ cart, setCart, onClose }) {
       `,
       icon: "success",
       showConfirmButton: true,
-      confirmButtonText: "Aceptar",
+      confirmButtonText: "Enviar calificación",
       didOpen: () => {
         const starsContainer = Swal.getHtmlContainer().querySelector("#rating-stars");
         for (let i = 1; i <= 5; i++) {
@@ -62,23 +74,53 @@ function ShoppingCart({ cart, setCart, onClose }) {
           star.innerHTML = "⭐";
           star.style.cursor = "pointer";
           star.style.fontSize = "24px";
-          star.style.color = i <= rating ? "#FFD700" : "#ccc";
+          star.style.color = "#ccc";
+
           star.addEventListener("click", () => {
-            setRating(i);
+            tempRating = i;
             Array.from(starsContainer.children).forEach((child, index) => {
               child.style.color = index < i ? "#FFD700" : "#ccc";
             });
-            Swal.fire("¡Gracias por tu calificación!", "Tu respuesta ha sido enviada.", "success");
           });
+
           starsContainer.appendChild(star);
         }
       },
-    }).then(() => {
-      setCart([]); // Vaciar el carrito después de confirmar el pedido
-      setDeliveryLocation(""); // Reiniciar la ubicación de entrega
-      setDeliveryTime(""); // Reiniciar la hora de entrega
-      setRating(0); // Reiniciar la calificación
-      onClose(); // Cerrar el carrito
+      preConfirm: () => {
+        if (tempRating === 0) {
+          Swal.showValidationMessage("Por favor, selecciona una calificación");
+          return false;
+        }
+        return tempRating;
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setRating(result.value);
+
+        try {
+          await addDoc(collection(db, "orders"), {
+            userId: user.uid,
+            cart: cart,
+            total: calculateTotal(),
+            deliveryLocation,
+            deliveryTime,
+            paymentMethod,
+            rating: result.value,
+            createdAt: serverTimestamp(),
+          });
+
+          Swal.fire("¡Gracias por tu calificación!", "Tu respuesta ha sido enviada.", "success");
+
+          setCart([]);
+          setDeliveryLocation("");
+          setDeliveryTime("");
+          setRating(0);
+          onClose();
+        } catch (error) {
+          Swal.fire("Error", "No se pudo guardar el pedido, intenta nuevamente.", "error");
+          console.error("Error guardando pedido:", error);
+        }
+      }
     });
   };
 
@@ -183,63 +225,58 @@ function ShoppingCart({ cart, setCart, onClose }) {
                 className="border p-2 rounded w-full bg-white text-black"
               />
             </div>
+
             <div className="mb-4">
               <h3 className="text-lg font-bold">Método de Pago</h3>
-              <div className="flex items-center space-x-4 mt-2">
-                <label>
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="cash"
-                    checked={paymentMethod === "cash"}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  <span className="ml-2">Efectivo</span>
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="card"
-                    checked={paymentMethod === "card"}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  <span className="ml-2">Tarjeta</span>
-                </label>
+              <select
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="border p-2 rounded w-full bg-white text-black"
+              >
+                <option value="cash">Efectivo</option>
+                <option value="card">Tarjeta de Crédito/Débito</option>
+              </select>
+            </div>
+
+            {paymentMethod === "card" && (
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Número de Tarjeta"
+                  value={cardDetails.number}
+                  onChange={(e) =>
+                    setCardDetails({ ...cardDetails, number: e.target.value })
+                  }
+                  className="border p-2 rounded w-full mb-2"
+                />
+                <input
+                  type="text"
+                  placeholder="Fecha de Expiración (MM/AA)"
+                  value={cardDetails.expiry}
+                  onChange={(e) =>
+                    setCardDetails({ ...cardDetails, expiry: e.target.value })
+                  }
+                  className="border p-2 rounded w-full mb-2"
+                />
+                <input
+                  type="text"
+                  placeholder="CVV"
+                  value={cardDetails.cvv}
+                  onChange={(e) =>
+                    setCardDetails({ ...cardDetails, cvv: e.target.value })
+                  }
+                  className="border p-2 rounded w-full"
+                />
               </div>
-              {paymentMethod === "card" && (
-                <div className="mt-4 space-y-2">
-                  <input
-                    type="text"
-                    placeholder="Número de Tarjeta"
-                    value={cardDetails.number}
-                    onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Fecha de Vencimiento (MM/AA)"
-                    value={cardDetails.expiry}
-                    onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                  <input
-                    type="text"
-                    placeholder="CVV"
-                    value={cardDetails.cvv}
-                    onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                </div>
-              )}
-            </div>
+            )}
+
             <div className="mb-4">
-              <h3 className="text-lg font-bold">Total a Pagar</h3>
-              <p className="text-2xl font-bold">${calculateTotal().toFixed(2)}</p>
+              <h3 className="text-lg font-bold">Total: ${calculateTotal().toFixed(2)}</h3>
             </div>
+
             <button
               onClick={handleConfirmOrder}
-              className="mt-4 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 w-full"
+              className="bg-[#796f9a] text-white px-6 py-3 rounded hover:bg-[#584e7e] w-full"
             >
               Confirmar Pedido
             </button>
