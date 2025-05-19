@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../Firebase";
 import ShoppingCart from "./ShoppingCart";
+import HeaderBar from "./HeaderBar";
 
 // Importar imágenes
 import restauranteEscuela from "../components/login/Assets/RestauranteEscuela.webp";
@@ -158,17 +159,13 @@ function ProductList() {
 
   return (
     <div className="min-h-screen bg-white p-4">
-      {/* Ícono del carrito */}
-      <div className="flex justify-end mb-4">
-        <button onClick={() => setShowCart(true)} className="relative text-2xl">
-          🛒
-          {cart.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
-              {cart.reduce((sum, item) => sum + item.quantity, 0)}
-            </span>
-          )}
-        </button>
-      </div>
+      {/* Barra superior */}
+      <HeaderBar
+        title="PRODUCT LIST"
+        showCart={true}
+        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+        onCartClick={() => setShowCart(true)}
+      />
 
       {/* Mostrar el carrito o el contenido principal */}
       {showCart ? (
