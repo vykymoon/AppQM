@@ -31,51 +31,76 @@
 - **Autenticación:** Firebase Auth, JWT, bcrypt
 - **Despliegue:** Vercel
 
-##Funcionalidades QuickMeal
-1. Login
-Permite iniciar sesión con una cuenta registrada.
-Usuarios: Todos (clientes y POS)
+# 📱 Funcionalidades – QuickMeal
 
-2. Registro (Signup)
-Permite crear una nueva cuenta proporcionando los datos requeridos.
-Usuarios: Nuevos usuarios
+---
 
-3. Vista de Restaurantes / Puntos de Servicio
-Muestra una lista de restaurantes y puntos de servicio disponibles en la universidad, con horarios y fotos.
-Usuarios: Clientes y POS
+### 1. **Login**
+Permite iniciar sesión con una cuenta registrada.  
+**Usuarios:** Todos (clientes y POS)
 
-4. Consulta de Menú
-Al seleccionar un restaurante, se muestra el menú con productos, precios y stock disponible.
-Usuarios: Clientes
+---
 
-5. Carrito de Compras
-Permite agregar productos, modificar cantidades, eliminar productos y ver el total.
-Usuarios: Clientes
+### 2. **Registro (Signup)**
+Permite crear una nueva cuenta proporcionando los datos requeridos.  
+**Usuarios:** Nuevos usuarios
 
-6. Realizar Pedido
-Permite confirmar el pedido, seleccionar lugar y hora de entrega, y método de pago (efectivo o tarjeta).
-Usuarios: Clientes
+---
 
-7. Seguimiento de Pedido
-Muestra el estado del pedido: pendiente, listo o entregado. También permite cancelar antes de ser preparado.
-Usuarios: Clientes
+### 3. **Vista de Restaurantes / Puntos de Servicio**
+Muestra una lista de restaurantes y puntos de servicio disponibles en la universidad, con horarios y fotos.  
+**Usuarios:** Clientes y POS
 
-8. Calificación de Pedido
-Permite calificar la experiencia una vez entregado el pedido.
-Usuarios: Clientes
+---
 
-9. Gestión de Productos (POS)
-Permite agregar, editar y eliminar productos del menú.
-Usuarios: POS
+### 4. **Consulta de Menú**
+Al seleccionar un restaurante, se muestra el menú con productos, precios y stock disponible.  
+**Usuarios:** Clientes
 
-10. Gestión de Pedidos (POS)
-Permite ver pedidos pendientes y listos, y marcar como "listo" o "entregado".
-Usuarios: POS
+---
 
-11. Historial de Pedidos
-Permite consultar pedidos anteriores.
-Usuarios: Clientes
+### 5. **Carrito de Compras**
+Permite agregar productos, modificar cantidades, eliminar productos y ver el total.  
+**Usuarios:** Clientes
 
-12. Perfil de Usuario
-Permite ver y editar la información personal.
-Usuarios: Clientes y POS
+---
+
+### 6. **Realizar Pedido**
+Permite confirmar el pedido, seleccionar lugar y hora de entrega, y método de pago (efectivo o tarjeta).  
+**Usuarios:** Clientes
+
+---
+
+### 7. **Seguimiento de Pedido**
+Muestra el estado del pedido: pendiente, listo o entregado. También permite cancelar antes de ser preparado.  
+**Usuarios:** Clientes
+
+---
+
+### 8. **Calificación de Pedido**
+Permite calificar la experiencia una vez entregado el pedido.  
+**Usuarios:** Clientes
+
+---
+
+### 9. **Gestión de Productos (POS)**
+Permite agregar, editar y eliminar productos del menú.  
+**Usuarios:** POS
+
+---
+
+### 10. **Gestión de Pedidos (POS)**
+Permite ver pedidos pendientes y listos, y marcar como "listo" o "entregado".  
+**Usuarios:** POS
+
+---
+
+### 11. **Historial de Pedidos**
+Permite consultar pedidos anteriores.  
+**Usuarios:** Clientes
+
+---
+
+### 12. **Perfil de Usuario**
+Permite ver y editar la información personal.  
+**Usuarios:** Clientes y POS
