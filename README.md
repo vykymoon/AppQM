@@ -1,22 +1,70 @@
-Aplicación web fullstack para la gestión de pedidos e inventarios en puntos de comida de la Universidad de La Sabana. Incluye paneles para clientes y usuarios POS, con autenticación, notificaciones y administración del sistema.
+# QuickMeal - Sistema de Inventario y Pedidos para Puntos de Venta Universitarios
 
-# QuickMeal
+## Descripción
 
-**QuickMeal** es una aplicación web fullstack desarrollada como proyecto final para la Universidad de La Sabana. Su propósito es facilitar la consulta y gestión de inventarios y pedidos en los puntos de comida de la universidad, tanto para clientes como para administradores (POS).
+**QuickMeal** es una aplicación web fullstack desarrollada para la Universidad de La Sabana. Permite a estudiantes y personal consultar inventario, precios y realizar pedidos en tiempo real en los puntos de venta de alimentos y bebidas del campus. Los encargados de cada punto pueden gestionar su inventario y pedidos de manera eficiente, optimizando la operación diaria y reduciendo filas.
 
-## 🚀 Descripción
+---
 
-QuickMeal permite a los clientes ver el estado del inventario, precios y tiempos de espera en tiempo real. Al mismo tiempo, proporciona a los encargados de los puntos de venta una herramienta eficiente para gestionar productos, precios y pedidos.
+## Características Principales
 
-## 🧑‍💻 Perfiles de Usuario
+### Perfil Cliente
+- Consulta de productos y precios en tiempo real.
+- Búsqueda y filtrado de productos.
+- Realización y seguimiento de pedidos online.
+- Historial de compras y calificación de productos.
 
-- **Perfil POS**: Administración de productos, inventarios y precios.
-- **Perfil Cliente**: Consulta de productos disponibles, realización de pedidos y seguimiento de su estado.
+### Perfil POS (Punto de Venta)
+- Gestión completa de inventarios y precios.
+- Actualización de stock en tiempo real.
+- Registro, edición y eliminación de productos.
+- Confirmación y procesamiento de pedidos.
+- Notificaciones para cambios en inventario y pedidos.
 
-## ⚙️ Tecnologías
+---
 
-- **Frontend**: React.js + Vite + Tailwind CSS
-- **Backend**: Node.js + Express.js
-- **Autenticación**: JWT + bcrypt
-- **Base de Datos**: Firebase (Bonus)
-- **Despliegue**: Vercel
+## Tecnologías Utilizadas
+
+- **Frontend:** React.js (Vite), Tailwind CSS
+- **Backend:** Node.js, Express.js
+- **Base de Datos y Notificaciones:** Firebase (Firestore)
+- **Autenticación:** Firebase Auth, JWT, bcrypt
+- **Despliegue:** Vercel
+
+## Estructura del Proyecto 
+AppQM/
+├── .gitignore
+├── package.json
+├── vite.config.js
+├── vercel.json
+├── public/
+│   └── index.html
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+│   ├── Firebase.js
+│   ├── context/
+│   │   └── AuthContext.js
+│   ├── components/
+│   │   ├── HeaderBar.jsx
+│   │   ├── OrderHistory.jsx
+│   │   ├── ProductList.jsx
+│   │   ├── ProductListManagement.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── RoleProtectedRoute.jsx
+│   │   ├── POSProtectedRoute.jsx
+│   │   ├── ShoppingCart.jsx
+│   │   ├── UserProfile.jsx
+│   │   ├── UserProfilePOS.jsx
+│   │   ├── ServicePoints.jsx
+│   │   ├── uploadServicePoints.js
+│   │   ├── login/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Signup2.jsx
+│   │   │   ├── Welcome.jsx
+│   │   │   ├── WelcomePOS.jsx
+│   │   │   └── Assets/
+│   │   │       └── ... (imágenes y recursos)
+└── README.md

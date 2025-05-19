@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../Firebase";
 import Swal from "sweetalert2";
+import HeaderBar from "./HeaderBar"; // Importa la barra superior
 
 // Imágenes de puntos de servicio
 import restauranteEscuela from "../components/login/Assets/RestauranteEscuela.webp";
@@ -166,10 +167,8 @@ function ProductListManagement() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#bfc8e6] flex flex-col">
-      {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-[#2E2955] text-white">
-        <h1 className="text-2xl font-bold tracking-widest">MANAGE PRODUCTS</h1>
-      </header>
+      {/* Barra superior */}
+      <HeaderBar title="MANAGE PRODUCTS" />
 
       {/* Main Content */}
       <main className="flex-1 flex justify-center items-center">
